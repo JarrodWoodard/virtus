@@ -1,0 +1,38 @@
+name: publish-gate
+
+# The gate a public fork has to clear on every push: no credentials in the tree or the history, and
+# nothing copyleft inside the dependency graph. Both checks are cheap and both fail closed.
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  secrets:
+    name: no credentials in tree or history
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # history matters: a rotated key is worthless, a leaked one is not
+      - name: gitleaks
+        uses: gitleaks/gitleaks-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+  licences:
+    name: MIT, nothing copyleft linked
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.14"
+      - name: audit declared and installed licences
+        run: |
+          python -m pip install --quiet .
+          python scripts/audit-licences.py --strict
