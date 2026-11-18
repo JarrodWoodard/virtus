@@ -1,0 +1,24 @@
+virtus — the Dextral agent
+==========================
+
+This product includes software developed by Nous Research as Hermes Agent
+(https://github.com/NousResearch/hermes-agent), licensed under the MIT License.
+The original copyright notice is preserved in LICENSE.
+
+Copyright (c) 2026 Jarrod Woodard (Dextral) — the fork, its modifications, and the
+Dextral brand assets (the wing-and-ring mark and the palette used in the TUI).
+
+Changes from upstream include: removal of portal, account, telemetry and plugin-marketplace
+integration; a local-only network posture; per-profile prompt control; the Dextral visual identity;
+and removal of store/self-update distribution paths.
+
+Third-party components
+----------------------
+
+The full dependency set is pinned in pyproject.toml and uv.lock. Their licences are recorded by the
+packages themselves; a machine-readable inventory can be produced with:
+
+    python3 scripts/audit-licences.py
+
+This project is MIT and must remain free of copyleft in combination: GPL/AGPL/SSPL components may be
+executed as separate processes, never linked or loaded into this codebase.

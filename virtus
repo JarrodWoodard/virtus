@@ -1,0 +1,12 @@
+#!/usr/bin/env python3
+"""
+Virtus CLI launcher.
+
+This wrapper behaves like the installed `virtus` command (a local fork of
+Hermes Agent). Internal Python module names stay `hermes_*` to keep
+upstream merges tractable.
+"""
+
+if __name__ == "__main__":
+    from hermes_cli.main import main
+    main()
